@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Spare files
 !.env.example
+
+#rasbot-host
+rasbot/
