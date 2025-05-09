@@ -1,0 +1,8 @@
+Response Time Statistics for OpenAI Whisper Transcriptions
+============================================================
+Number of files processed: 20
+Average response time: 2.138 seconds
+Minimum response time: 1.081 seconds
+Maximum response time: 3.478 seconds
+Median response time: 1.997 seconds
+Standard deviation: 0.774 seconds

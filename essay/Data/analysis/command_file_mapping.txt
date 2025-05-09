@@ -1,0 +1,22 @@
+指令与文件名映射
+==============================
+指令 1: ElevenLabs_2025-03-07T11_26_37_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 2: ElevenLabs_2025-03-07T11_27_01_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 3: ElevenLabs_2025-03-07T11_27_15_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 4: ElevenLabs_2025-03-07T11_27_45_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 5: ElevenLabs_2025-03-07T11_28_24_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 6: ElevenLabs_2025-03-07T11_29_10_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 7: ElevenLabs_2025-03-07T11_29_48_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 8: ElevenLabs_2025-03-07T11_30_15_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 9: ElevenLabs_2025-03-07T11_30_25_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 10: ElevenLabs_2025-03-07T11_32_35_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 11: ElevenLabs_2025-03-07T11_33_04_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 12: ElevenLabs_2025-03-07T11_33_29_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 13: ElevenLabs_2025-03-07T11_33_51_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 14: ElevenLabs_2025-03-07T11_34_09_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 15: ElevenLabs_2025-03-07T11_34_33_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 16: ElevenLabs_2025-03-07T11_34_47_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 17: ElevenLabs_2025-03-07T11_35_11_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2 (1).mp3
+指令 18: ElevenLabs_2025-03-07T11_35_11_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 19: ElevenLabs_2025-03-07T11_35_32_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3
+指令 20: ElevenLabs_2025-03-07T11_35_55_Yu (Chinese) - Energetic and Engaging Voice with a Youthful Taiwanese Accent_pvc_s50_sb75_se0_b_m2.mp3

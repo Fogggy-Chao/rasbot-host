@@ -1,0 +1,306 @@
+[
+  {
+    "command": "机械臂抬起",
+    "parsed_command": {
+      "action_subject": "机械臂",
+      "action_type": "抬起",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "机械臂抬起"
+    },
+    "mapped_command": {
+      "command_type": "arm_lift",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "机械臂放下",
+    "parsed_command": {
+      "action_subject": "机械臂",
+      "action_type": "放下",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "机械臂放下"
+    },
+    "mapped_command": {
+      "command_type": "arm_lower",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "机械臂停止",
+    "parsed_command": {
+      "action_subject": "机械臂",
+      "action_type": "停止",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "机械臂停止"
+    },
+    "mapped_command": {
+      "command_type": "arm_stop",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "机械臂夹具打开",
+    "parsed_command": {
+      "action_subject": "机械臂夹具",
+      "action_type": "打开",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "机械臂夹具打开"
+    },
+    "mapped_command": {
+      "command_type": null,
+      "parameters": {}
+    }
+  },
+  {
+    "command": "机械臂夹具关闭",
+    "parsed_command": {
+      "action_subject": "机械臂夹具",
+      "action_type": "关闭",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "机械臂夹具关闭"
+    },
+    "mapped_command": {
+      "command_type": null,
+      "parameters": {}
+    }
+  },
+  {
+    "command": "机械臂抓取",
+    "parsed_command": {
+      "action_subject": "机械臂",
+      "action_type": "抓取",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "机械臂抓取"
+    },
+    "mapped_command": {
+      "command_type": "arm_grab",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "机械臂松开",
+    "parsed_command": {
+      "action_subject": "机械臂",
+      "action_type": "松开",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "机械臂松开"
+    },
+    "mapped_command": {
+      "command_type": "arm_release",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "机械臂复位",
+    "parsed_command": {
+      "action_subject": "机械臂",
+      "action_type": "复位",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "机械臂复位"
+    },
+    "mapped_command": {
+      "command_type": "arm_reset",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "机械臂旋转到左侧",
+    "parsed_command": {
+      "action_subject": "机械臂",
+      "action_type": "旋转",
+      "action_object": null,
+      "object_location": "左侧",
+      "action_parameters": {},
+      "raw_command": "机械臂旋转到左侧"
+    },
+    "mapped_command": {
+      "command_type": "arm_rotate",
+      "parameters": {
+        "direction": "left"
+      }
+    }
+  },
+  {
+    "command": "机械臂旋转到右侧",
+    "parsed_command": {
+      "action_subject": "机械臂",
+      "action_type": "旋转",
+      "action_object": null,
+      "object_location": "右侧",
+      "action_parameters": {},
+      "raw_command": "机械臂旋转到右侧"
+    },
+    "mapped_command": {
+      "command_type": "arm_rotate",
+      "parameters": {
+        "direction": "right"
+      }
+    }
+  },
+  {
+    "command": "小车前进",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "前进",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车前进"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_forward",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "小车后退",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "后退",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车后退"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_backward",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "小车停止",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "停止",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车停止"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_stop",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "小车左转",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "左转",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车左转"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_turn_left",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "小车右转",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "右转",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车右转"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_turn_right",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "小车加速",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "加速",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车加速"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_accelerate",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "小车减速",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "减速",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车减速"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_decelerate",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "小车鸣笛",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "鸣笛",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车鸣笛"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_horn",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "小车暂停",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "暂停",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车暂停"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_pause",
+      "parameters": {}
+    }
+  },
+  {
+    "command": "小车继续",
+    "parsed_command": {
+      "action_subject": "小车",
+      "action_type": "继续",
+      "action_object": null,
+      "object_location": null,
+      "action_parameters": {},
+      "raw_command": "小车继续"
+    },
+    "mapped_command": {
+      "command_type": "vehicle_resume",
+      "parameters": {}
+    }
+  }
+]

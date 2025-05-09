@@ -1,0 +1,34 @@
+Word Error Rate Statistics for Chinese Command Transcriptions
+============================================================
+Number of files analyzed: 20
+Average WER: 0.227
+Minimum WER: 0.000
+Maximum WER: 1.000
+
+Commands with highest error rates:
+  Command 4: WER=0.667
+    Reference: 机械臂放下
+    Whisper  : 机械比方下
+
+  Command 9: WER=0.750
+    Reference: 机械臂夹具打开
+    Whisper  : 机械筆夾具打開
+
+  Command 12: WER=1.000
+    Reference: 小车前进
+    Whisper  : 小車前進
+
+
+Commands with lowest error rates:
+  Command 1: WER=0.000
+    Reference: 小车后退
+    Whisper  : 小车后退
+
+  Command 18: WER=0.000
+    Reference: 机械臂旋转到右侧
+    Whisper  : 机械臂旋转到右侧
+
+  Command 16: WER=0.000
+    Reference: 小车停止
+    Whisper  : 小车停止
+

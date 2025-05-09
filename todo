@@ -1,0 +1,30 @@
+# Project: Rabot
+
+## TODO
+
+- [x] **Set up OpenAI API calling**
+    - [x] real-time audio streaming
+    - [x] system prompt writing and ensure generation consistency
+    
+- [x] **Set up LLM output parsing**
+    - [x] real-time audio streaming parsed response
+    - [x] stuctured response parsing
+
+// Use function calling to generate motor driver signal and build connection with motor driver
+    
+
+- [x] **Use structured response to generate motor driver signal**
+    - [x] motor driver signal generation
+    - [x] motor driver signal sending (websocket)
+
+- [x] **Set up motor driver & raspberry pi**
+    - [x] raspberry pi setup
+    - [x] motor driver hardware setup
+    - [x] motor driver connect with raspberry pi
+    - [x] motor driver signal reading
+
+- [x] **Audio driven motor testing**
+
+## Iteration
+- [ ] **Add time control to motor signal**
+- [ ] **Add serial signal capability**
