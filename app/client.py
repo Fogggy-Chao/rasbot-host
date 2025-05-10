@@ -12,8 +12,7 @@ load_dotenv()
 RPI_URL = os.getenv('RPI_URL')
 SYSTEM_PROMPT = os.getenv('SYSTEM_PROMPT')
 
-# Initialize OpenAI client
-
+# Initialize OpenAI websocket client
 def oai_init(url, headers):
     global ws_oai
     ws_oai = websocket.WebSocketApp(
@@ -25,7 +24,7 @@ def oai_init(url, headers):
         on_close=oai_on_close)
     return ws_oai
 
-# Initialize Raspberry Pi client
+# Initialize Raspberry Pi websocket client
 def rpi_init(url):
     global ws_rpi
     ws_rpi = websocket.WebSocketApp(

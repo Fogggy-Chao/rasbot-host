@@ -14,12 +14,13 @@ MODEL_NAME = os.getenv('MODEL_NAME')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 SYSTEM_PROMPT = str(os.getenv('SYSTEM_PROMPT'))
 RPI_URL = os.getenv('RPI_URL')
+
 # Verify environment variables are loaded
 if not all([MODEL_NAME, OPENAI_API_KEY, SYSTEM_PROMPT]):
     raise ValueError("Missing required environment variables")
 
 # Set up websocket connection
-url = "wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17"
+oai_url = "wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17"
 headers = [
     "Authorization: Bearer " + OPENAI_API_KEY,
     "OpenAI-Beta: realtime=v1"
@@ -29,12 +30,11 @@ headers = [
 CHUNK = 1024 * 2  # Number of frames per buffer
 FORMAT = pyaudio.paFloat32
 CHANNELS = 1
-RATE = 16000  # Sample rate expected by most speech services
+RATE = 16000  # Sample rate expected by whisper
 
 # Initialize websocket clients
-ws_oai = oai_init(url, headers)
+ws_oai = oai_init(oai_url, headers)
 ws_rpi = rpi_init(RPI_URL)
-
 
 # Main function
 if __name__ == "__main__":
