@@ -65,7 +65,11 @@ def stream_audio(ws, FORMAT, CHANNELS, RATE, CHUNK):
 
 # Motor driver control
 def message_to_rpi(motor1: bool, motor2: bool, motor3: bool, motor4: bool, m1_speed: float, m2_speed: float, m3_speed: float, m4_speed: float, ws):
-
+    # Validate motor speeds
+    m1_speed = max(0.0, min(1.0, m1_speed))
+    m2_speed = max(0.0, min(1.0, m2_speed))
+    m3_speed = max(0.0, min(1.0, m3_speed))
+    m4_speed = max(0.0, min(1.0, m4_speed))
     # Create motor signals dictionary
     motor_signals = {
         "motor1": motor1,

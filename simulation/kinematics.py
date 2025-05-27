@@ -1285,7 +1285,7 @@ def main():
     test_configurations = [
         [0, 0, 0, 0, 0, 40],
         [90, 90, 90, 90, 90, 90],
-        [0, 45, 45, 45, 45, 0]
+        [0, 45, 45, 45, 45, 60]
     ]
     
     print("Testing multiple robot configurations...")

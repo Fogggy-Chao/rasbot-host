@@ -4,17 +4,31 @@ import os
 from dotenv import load_dotenv
 from utils import message_to_rpi
 import time
+from tool import TOOLS
+
+# Global variable to hold the executor instance
+_executor_instance = None
 
 # Load environment variables
 load_dotenv()
 
 # Get Raspberry Pi connection details
 RPI_URL = os.getenv('RPI_URL')
-SYSTEM_PROMPT = os.getenv('SYSTEM_PROMPT')
+
+# Load system prompt from file
+PROMPT_FILE = "system_prompt.txt" # Or .md if you used that
+try:
+    with open(os.path.join(os.path.dirname(__file__), PROMPT_FILE), 'r') as f:
+        SYSTEM_PROMPT = f.read()
+except FileNotFoundError:
+    raise FileNotFoundError(f"Error: System prompt file not found at {PROMPT_FILE}")
+
+model_tools = TOOLS
 
 # Initialize OpenAI websocket client
-def oai_init(url, headers):
-    global ws_oai
+def oai_init(url, headers, executor):
+    global ws_oai, _executor_instance
+    _executor_instance = executor
     ws_oai = websocket.WebSocketApp(
         url,
         header=headers,
@@ -54,51 +68,8 @@ def oai_on_open(ws):
                     "silence_duration_ms": 400,
                     "create_response": True
                 },
-                "tools":[
-                    {
-                        "type": "function",
-                        "name": "motor_driver_control",
-                        "description": "Control the motor driver by defining the signals of the motors.",
-                        "parameters": {
-                            "type": "object",
-                            "properties": {
-                                "motor1": {
-                                    "type": "boolean",
-                                    "description": "The signal of motor 1. True means the motor is on, False means the motor is off."
-                                },
-                                "motor2": {
-                                    "type": "boolean",
-                                    "description": "The signal of motor 2. True means the motor is on, False means the motor is off."
-                                },  
-                                "motor3": {
-                                    "type": "boolean",
-                                    "description": "The signal of motor 3. True means the motor is on, False means the motor is off."
-                                },
-                                "motor4": {
-                                    "type": "boolean",
-                                    "description": "The signal of motor 4. True means the motor is on, False means the motor is off."
-                                },
-                                "m1_speed": {
-                                    "type": "number",
-                                    "description": "The speed of motor 1. The value should be between 0 and 1."
-                                },
-                                "m2_speed": {
-                                    "type": "number",
-                                    "description": "The speed of motor 2. The value should be between 0 and 1."
-                                },
-                                "m3_speed": {
-                                    "type": "number",
-                                    "description": "The speed of motor 3. The value should be between 0 and 1."
-                                },
-                                "m4_speed": {
-                                    "type": "number",
-                                    "description": "The speed of motor 4. The value should be between 0 and 1."
-                                }
-                            },
-                            "required": ["motor1", "motor2", "motor3", "motor4", "m1_speed", "m2_speed", "m3_speed", "m4_speed"]
-                        }
-                    }
-                ]
+                "tools":model_tools,
+                "tool_choice": "auto"
             }
         }
         ws.send(json.dumps(event))
@@ -110,51 +81,98 @@ def oai_on_message(ws, message):
     try:
         # Parse the JSON message from server
         server_response = json.loads(message)
-        
-        # Handle server response
-        if server_response['type'] == "response.function_call_arguments.done":
-            args = json.loads(server_response['arguments'])
-            print(f"Function call arguments: {args}")
+        response_type = server_response.get('type')
+
+        # Handle function call
+        if response_type == "response.done" and server_response.get("response", {}).get("output", [])[0].get("type") == "function_call":
+            tool_call = server_response["response"]["output"][0]
+            tool_call_id = tool_call.get("call_id")
+            name = tool_call.get("name")
+            args = json.loads(tool_call.get("arguments", "{}"))
+            print(f"Function: {name}\nArguments: {args}")
+
+            if not tool_call_id or not name:
+                print("Error: Missing tool_call_id or function name in response.")
+                return
+
             try:
-                global ws_rpi
-                # Check if the Raspberry Pi connection is established
-                if ws_rpi and ws_rpi.sock and ws_rpi.sock.connected:
-                    message_to_rpi(
-                        bool(args.get('motor1', False)),
-                        bool(args.get('motor2', False)),
-                        bool(args.get('motor3', False)),
-                        bool(args.get('motor4', False)), 
-                        float(args.get('m1_speed')),
-                        float(args.get('m2_speed')),
-                        float(args.get('m3_speed')),
-                        float(args.get('m4_speed')),
-                        ws_rpi
-                    )
+                # Execute the tool using the executor
+                result = _executor_instance(name, args)
+                print(f"Tool Result: {result}")
+
+                # Format the result message for OpenAI
+                tool_result_message = {
+                    "type": "conversation.item.create",
+                    "item": {
+                        "type": "function_call_output",
+                        "call_id": tool_call_id,
+                        "output": json.dumps(result)
+                    }
+                }
+                ws.send(json.dumps(tool_result_message))
+                create_response_message = {
+                    "type": "response.create"
+                }
+                ws.send(json.dumps(create_response_message))
+                print("Tool result sent back to OpenAI.")
+
             except Exception as e:
-                print(f"Error executing motor control: {e}")
-                print(f"Received arguments: {args}")
+                print(f"Error executing tool {name} or sending result: {e}")
+                # Optionally send an error result back to OpenAI
+                error_result_message = {
+                    "type": "conversation.item.create",
+                    "item": {
+                        "type": "function_call_output",
+                        "call_id": tool_call_id,
+                        "output": json.dumps({"error": str(e)})
+                    }
+                }
+                ws.send(json.dumps(error_result_message))
 
-        elif server_response['type'] == "response.audio_transcript.done":
-            print(f"Audio transcript: {server_response['transcript']}")
 
-        elif server_response['type'] == 'conversation.item.input_audio_transcription.completed':
-            elapsed = time.perf_counter() - start
-            print(f"Input audio transcript: {server_response['transcript']}")
-            print(f"Latency: {elapsed}")
+        # Handle text response (check for DONE/ERROR)
+        elif response_type == "response.done" and server_response.get("response", {}).get("output", [])[0].get("type") == "text":
+            text_output = server_response["response"]["output"][0]["value"]
+            print(f"Final Text Response: {text_output}")
+            if text_output.startswith("DONE:"):
+                print("Goal achieved.")
+                # Potentially add logic here to stop or reset
+            elif text_output.startswith("ERROR:"):
+                print(f"Error reported by LLM: {text_output}")
+                # Potentially add logic here to stop or handle the error
 
-        elif server_response['type'] == 'input_audio_buffer.speech_started':
-            start = time.perf_counter()
-        
-        elif server_response['type'] == 'input_audio_buffer.speech_stopped':
-            input_time = time.perf_counter() - start
-            print(f"User input time: {input_time}") 
+        elif response_type == "response.audio_transcript.done":
+            print(f"Audio transcript: {server_response.get('transcript')}")
+
+        elif response_type == 'conversation.item.input_audio_transcription.completed':
+            # elapsed = time.perf_counter() - start # 'start' is not defined here, remove for now
+            print(f"Input audio transcript: {server_response.get('transcript')}")
+            # print(f"Latency: {elapsed}") # Remove latency calculation for now
+
+        elif response_type == 'input_audio_buffer.speech_started':
+            # start = time.perf_counter() # 'start' is not defined here, remove for now
+            print("Speech started.")
+
+        elif response_type == 'input_audio_buffer.speech_stopped':
+            # input_time = time.perf_counter() - start # 'start' is not defined here, remove for now
+            # print(f"User input time: {input_time}") # Remove time calculation for now
+            print("Speech stopped.")
+
+        # elif response_type == 'audio.done':
+
+        elif response_type == 'error':
+            print(f"Error: {server_response.get('error', 'Unknown error')}")
 
         else:
-            print(f"Response: {server_response['type']}")
-            # None
-            
+            print(f"Other Response Type: {response_type}")
+            # print(f"Full message: {server_response}") # Optional: print full message for debugging
+
+    except json.JSONDecodeError:
+        print(f"Received non-JSON message: {message}")
     except Exception as e:
+        import traceback
         print(f" Error processing message: {e}")
+        traceback.print_exc() # Print full traceback for debugging
 
 # OpenAI on error handler
 def oai_on_error(ws, error):

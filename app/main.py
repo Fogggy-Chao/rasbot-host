@@ -5,19 +5,21 @@ import pyaudio
 import time
 import utils
 from client import oai_init, rpi_init
+from executor import MockExecutor, RPIExecutor
+
 
 # Load environment variables
 load_dotenv()
 
+
 # Extract environment variables
 MODEL_NAME = os.getenv('MODEL_NAME')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-SYSTEM_PROMPT = str(os.getenv('SYSTEM_PROMPT'))
 RPI_URL = os.getenv('RPI_URL')
 
-# Verify environment variables are loaded
-if not all([MODEL_NAME, OPENAI_API_KEY, SYSTEM_PROMPT]):
-    raise ValueError("Missing required environment variables")
+# Verify environment variables are loaded (excluding SYSTEM_PROMPT now)
+if not all([MODEL_NAME, OPENAI_API_KEY]): # <-- Check only required env vars
+    raise ValueError("Missing required environment variables (MODEL_NAME, OPENAI_API_KEY)")
 
 # Set up websocket connection
 oai_url = "wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17"
@@ -32,9 +34,14 @@ FORMAT = pyaudio.paFloat32
 CHANNELS = 1
 RATE = 16000  # Sample rate expected by whisper
 
-# Initialize websocket clients
-ws_oai = oai_init(oai_url, headers)
+# Initialize websocket RPI client first as it's needed by the RPIExecutor
 ws_rpi = rpi_init(RPI_URL)
+
+# Initialize executor
+EXECUTOR = RPIExecutor(ws_rpi)# <-- switch to RPIExecutor(ws_rpi) later
+
+# Initialize websocket OAI client
+ws_oai = oai_init(oai_url, headers, EXECUTOR)
 
 # Main function
 if __name__ == "__main__":
@@ -54,7 +61,7 @@ if __name__ == "__main__":
             if ws_oai.sock and ws_oai.sock.connected:
                 utils.stream_audio(ws_oai, FORMAT, CHANNELS, RATE, CHUNK)
             else:
-                print("Connection lost. Reconnecting...")
+                print("Connecting...")
                 time.sleep(1)
     except KeyboardInterrupt:
         print("\nStopping application...")

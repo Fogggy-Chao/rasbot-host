@@ -1,0 +1,20 @@
+// Perceive-Plan-Act Loop
+digraph System_Overview {
+	fontsize=20 label="Figure 1: System Overview - Perceive–Plan–Act Loop" rankdir=TD
+	A [label="User Speaks Command" shape=box]
+	B [label="Whisper Transcription" shape=diamond]
+	C [label="GPT-4o Planner" shape=diamond]
+	D [label="Executor Layer" shape=diamond]
+	E [label="Mocked Perception/Control" shape=box]
+	F [label="LLM Text Output (DONE:/ERROR:)" shape=box]
+	G [label="User Notified" shape=box]
+	A -> B
+	B -> C
+	C -> D [label="Tool Call (JSON)"]
+	D -> E [label="Mock Function Call"]
+	E -> D [label=Result]
+	D -> C [label="Tool Result (JSON)"]
+	C -> C [label="Need More Steps?"]
+	C -> F
+	F -> G
+}
